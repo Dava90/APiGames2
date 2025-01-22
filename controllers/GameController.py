@@ -11,10 +11,17 @@ from sqlalchemy import func
 #     games = Game.query.all()
 #     return jsonify([game.to_dict() for game in games])
 
+# @jwt_required()
+# def get_games():
+#     games = Game.query.order_by(Game.name.asc()).all()
+#     return jsonify({"data": {"games": [game.to_dict() for game in games]}})
+    
 @jwt_required()
 def get_games():
-    games = Game.query.order_by(Game.name.asc()).all()
+    games = Game.query.order_by(Game.name.asc()).limit(100).all()
     return jsonify({"data": {"games": [game.to_dict() for game in games]}})
+
+
 
 @jwt_required()
 def get_game(game_id):
